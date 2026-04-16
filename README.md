@@ -45,3 +45,63 @@ Project Structure
 Sami Ur Rehman  
 Backend Developer | Django | Django Rest Framework
 
+
+---
+
+🖥️ Frontend Setup (React + Vite)
+
+📌 Requirements
+- Node.js (>= 16)
+- npm or yarn
+
+🚀 Installation Steps
+
+bash
+1. Move to frontend folder
+cd frontend
+
+2. Install dependencies
+npm install
+
+3. Start development server
+npm run dev
+
+🌐 Frontend Runs On:
+http://localhost:5173/
+
+Backend Setup (Django REST Framework)
+📌 Requirements
+Python (>= 3.10)
+pip
+virtualenv (recommended)
+
+Installation Steps
+1. Move to backend folder
+cd backend
+
+3. Create virtual environment
+python -m venv venv
+
+3. Activate virtual environment
+Windows:
+venv\Scripts\activate
+
+Mac/Linux:
+source venv/bin/activate
+
+4. Install dependencies
+pip install -r requirements.txt
+
+5. Run migrations
+python manage.py migrate
+
+6. Start server
+python manage.py runserver
+
+🌐 Backend Runs On:
+http://127.0.0.1:8000/
+
+⚠️ Important: 
+Frontend (React) and Backend (Django DRF) must be run at the same time for the project to work properly.
+If the backend is not running, the frontend will not be able to fetch or display data from the APIs.
+
