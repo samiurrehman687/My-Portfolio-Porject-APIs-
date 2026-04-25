@@ -22,7 +22,9 @@ const Home = () => {
       <div className="bg-soft-white pt-30">
         <WorkProcess />
       </div>
-      <Portfolio />
+      <div id="portfolio">
+        <Portfolio />
+      </div>
       <div className="bg-gray-900">
         <WorkTogether />
       </div>
