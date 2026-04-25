@@ -13,7 +13,7 @@ const Contact = () => {
   const [contactInfo, setContactInfo] = useState(null);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/contactinfo/")
+    fetch("${import.meta.env.VITE_API_URL}/api/contactinfo/")
       .then((res) => res.json())
       .then((data) => setContactInfo(data))
       .catch((err) => console.log(err));
