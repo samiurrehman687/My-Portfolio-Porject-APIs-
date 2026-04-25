@@ -61,10 +61,15 @@ const Introduction = () => {
             </span>
           </p>
 
-          <p className="text-xs xxs:text-lg lg:text-[18px] my-6">
-            {homeData?.paragraph ||
-              "I'm a Freelance UI/UX Designer and Developer based in London, England. I strive to build immersive and beautiful web applications through carefully crafted code and user-centric design."}
-          </p>
+          {!homeData ? (
+              <p className="text-xs xxs:text-lg lg:text-[18px] my-6">
+                Loading content please wait...
+              </p>
+            ) : (
+              <p className="text-xs xxs:text-lg lg:text-[18px] my-6">
+                {homeData?.paragraph}
+              </p>
+            )}
 
           <p className="text-center lg:text-start">
             <a
