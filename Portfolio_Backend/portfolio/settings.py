@@ -16,7 +16,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
 # Application definition
 
 INSTALLED_APPS = [
-    "jazzmin",
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +42,11 @@ MIDDLEWARE = [
 
 
 # CORS
-CORS_ALLOW_ALL_ORIGINS = config('CORS_ALLOW_ALL_ORIGINS')
+CORS_ALLOW_ALL_ORIGINS = config(
+    'CORS_ALLOW_ALL_ORIGINS',
+    default=False,
+    cast=bool
+)
 
 
 #...................................................
@@ -126,3 +130,9 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
     )
 }
+
+
+from decouple import config
+
+BREVO_API_KEY = config('BREVO_API_KEY')
+BREVO_SENDER_EMAIL = config('BREVO_SENDER_EMAIL')

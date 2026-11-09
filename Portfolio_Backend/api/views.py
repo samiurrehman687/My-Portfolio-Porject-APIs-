@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .utils import send_brevo_email
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
@@ -10,6 +11,9 @@ from api import serializers as s1
 from django.utils.decorators import method_decorator
 from django.core.cache import cache
 from django.views.decorators.cache import cache_page
+
+
+from django.core.mail import send_mail
 # Create your views here.
 #..............................................................................
 #                   Contact API Endpoint
@@ -17,6 +21,34 @@ from django.views.decorators.cache import cache_page
 class ContactView(ModelViewSet):
     queryset = m1.Contact.objects.all()
     serializer_class = s1.ContactSerializers
+
+    def perform_create(self, serializer):
+
+        contact = serializer.save()
+
+        # Admin Email
+        send_brevo_email(
+            to_email='samicodes5072@gmail.com',
+            subject='New Contact Message',
+            message=f'''
+            Name: {contact.name}
+            Email: {contact.email}
+            Message: {contact.message}
+            '''
+        )
+
+        # User Email
+        send_brevo_email(
+            to_email=contact.email,
+            subject='Thank You for Contacting Us',
+            message=f'''
+            Hello {contact.name},
+
+            Thank you for contacting us.
+            We have received your message.
+            We will contact you soon.
+            '''
+        )
 
 #..............................................................................
 #                      Home Data API Endpoint
