@@ -1,62 +1,106 @@
+
 from pathlib import Path
+import os
 from decouple import config
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# --------------------------------------------------
+# BASE DIRECTORY
+# --------------------------------------------------
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = config('SECRET_KEY')
+# --------------------------------------------------
+# SECURITY
+# --------------------------------------------------
 
+SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in config('ALLOWED_HOSTS', default='').split(',')
+    if host.strip()
+]
 
 
-# Application definition
+# --------------------------------------------------
+# FRONTEND CONFIGURATION
+# --------------------------------------------------
+
+FRONTEND_URL = config('FRONTEND_URL')
+
+CORS_ALLOWED_ORIGINS = [
+    FRONTEND_URL,
+]
+
+
+# --------------------------------------------------
+# APPLICATION DEFINITION
+# --------------------------------------------------
 
 INSTALLED_APPS = [
     'jazzmin',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
     'corsheaders',
+
     'api.apps.ApiConfig',
 ]
 
+
+# --------------------------------------------------
+# MIDDLEWARE
+# --------------------------------------------------
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
     'corsheaders.middleware.CorsMiddleware',
+
+    'django.middleware.common.CommonMiddleware',
+
+    'django.middleware.csrf.CsrfViewMiddleware',
+
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+
+    'django.contrib.messages.middleware.MessageMiddleware',
+
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
     'api.middlewares.UnderConstMiddleware',
 ]
 
 
-# CORS
-CORS_ALLOW_ALL_ORIGINS = config(
-    'CORS_ALLOW_ALL_ORIGINS',
-    default=False,
-    cast=bool
-)
+# --------------------------------------------------
+# URL CONFIGURATION
+# --------------------------------------------------
 
-
-#...................................................
 ROOT_URLCONF = 'portfolio.urls'
+
+
+# --------------------------------------------------
+# TEMPLATES
+# --------------------------------------------------
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+
         'DIRS': [],
+
         'APP_DIRS': True,
+
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
@@ -67,11 +111,13 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+# --------------------------------------------------
+# DATABASE
+# --------------------------------------------------
 
 DATABASES = {
     'default': {
@@ -81,8 +127,9 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
+# --------------------------------------------------
+# PASSWORD VALIDATION
+# --------------------------------------------------
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -100,8 +147,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/6.0/topics/i18n/
+# --------------------------------------------------
+# INTERNATIONALIZATION
+# --------------------------------------------------
 
 LANGUAGE_CODE = 'en-us'
 
@@ -112,18 +160,25 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
+# --------------------------------------------------
+# STATIC FILES
+# --------------------------------------------------
 
 STATIC_URL = 'static/'
 
 
-import os
+# --------------------------------------------------
+# MEDIA FILES
+# --------------------------------------------------
 
 MEDIA_URL = '/media/'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
+# --------------------------------------------------
+# DJANGO REST FRAMEWORK
+# --------------------------------------------------
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
@@ -131,11 +186,18 @@ REST_FRAMEWORK = {
     )
 }
 
-from decouple import config
-FRONTEND_URL = config('FRONTEND_URL')
 
-
-from decouple import config
+# --------------------------------------------------
+# BREVO EMAIL CONFIGURATION
+# --------------------------------------------------
 
 BREVO_API_KEY = config('BREVO_API_KEY')
+
 BREVO_SENDER_EMAIL = config('BREVO_SENDER_EMAIL')
+
+
+# --------------------------------------------------
+# DEFAULT PRIMARY KEY
+# --------------------------------------------------
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
