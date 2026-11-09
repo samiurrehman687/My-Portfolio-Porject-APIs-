@@ -25,7 +25,7 @@ router.register("maintenance", v1.UnderConstructionViewSet, basename="maintenanc
 
 #URLs 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('portfoliomycode/', admin.site.urls),
     path('api/', include(router.urls)),
 ]
 
