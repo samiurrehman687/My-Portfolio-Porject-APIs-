@@ -131,6 +131,9 @@ REST_FRAMEWORK = {
     )
 }
 
+from decouple import config
+FRONTEND_URL = config('FRONTEND_URL')
+
 
 from decouple import config
 
